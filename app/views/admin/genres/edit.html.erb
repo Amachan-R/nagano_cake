@@ -1,10 +1,23 @@
 <main>
-  <h1>ジャンル編集</h1>
-
-  <%= form_with model:@genre, url:"/admin/genres/#{@genre.id}", local:true do |f| %>
-    <p>ジャンル名</p>
-    <%= f.text_field :name %>
-    <%= f.submit '変更を保存' %>
-  <% end %>
-
+  <div class="container px-5 px-sm-0">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="m-5"></div>
+          <h5><span class="ml-5 border px-3 bg-light"><strong>ジャンル編集</strong></span></h5>
+          <div class="m-5"></div>
+          <%= form_with model:@genre, url:"/admin/genres/#{@genre.id}", local:true do |f| %>
+            <div class="row">
+              <p class="col-2">ジャンル名</p>
+              <div class="col-4">
+                <%= f.text_field :name %>
+              </div>
+              <div class="col-3">
+                <%= f.submit '変更を保存', class: 'btn btn-success px-3' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

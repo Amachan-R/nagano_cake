@@ -1,12 +1,38 @@
 <main>
-  <h2>商品詳細</h2>
-
-  <%= attachment_image_tag @item, :image, :fill, 50, 50, format: 'jpeg' %>
-  <h4>商品名</h4><p><%= @item.name %></p>
-  <h4>商品説明</h4><p><%= @item.introduction %></p>
-  <h4>ジャンル</h4><p><%= @item.genre.name %></p>
-  <h4>税込価格(税抜価格)</h4><p><%= @item.price %></p>
-  <h4>販売ステータス</h4><p><%= @item.is_active %></p>
-
-  <%= link_to "編集する", edit_admin_item_path(@item.id) %>
+  <div class="container">
+    <div class="p-4">
+      <h5 class="ml-5"><span class="border px-3 bg-light"><strong>商品詳細</strong></span></h5>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <%= attachment_image_tag @item, :image, :fill, 300, 300, format: 'jpeg' %>
+      </div>
+      <div class="col-lg-6">
+        <br />
+        <div class="row">
+          <p class="col-4">商品名</p><strong class="col-6"><%= @item.name %></strong>
+        </div>
+        <div class="row">
+          <p class="col-4">商品説明</p><strong class="col-6"><%= @item.introduction %></strong>
+        </div><br />
+        <div class="row">
+          <p class="col-4">ジャンル</p><strong class="col-6"><%= @item.genre.name %></strong>
+        </div>
+        <div class="row">
+          <p class="col-4">税込価格<br />(税抜価格)</p><p class="mt-2"><strong class="col-6"><%= (@item.price*1.1).to_i %>(<%= @item.price %>)</strong>円</p>
+        </div>
+        <div class="row">
+          <p class="col-4">販売ステータス</p>
+          <% if @item.is_active == true %>
+            <strong class="col-6 text-success">販売中</strong>
+          <% else %>
+            <strong class="col-6 text-black-50">販売停止中</strong>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="col-8 mx-auto mt-2"><%= link_to "編集する", edit_admin_item_path(@item.id), class: 'btn btn-success px-4' %></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

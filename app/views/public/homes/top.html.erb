@@ -1,0 +1,23 @@
+<main>
+  <p><strong>ジャンル検索</strong></p>
+  <ul>
+    <li>ケーキ</li>
+    <li>焼き菓子</li>
+    <li>プリン</li>
+    <li>キャンディ</li>
+  </ul>
+  <p>ようこそ、ながのCAKEへ！<br />
+  このサイトは、ケーキ販売のECサイトになります。<br />
+  会員でない方も商品の閲覧はできますが、<br />
+  購入には会員登録が必要になります。
+  </p>
+  <h3>新着商品</h3>
+  <% @items.each do |item| %>
+    <ul>
+      <li><%= attachment_image_tag item, :image, :fill, 50, 50, format: 'jpeg' %></li>
+      <li><%= item.name %></li>
+      <li><%= item.price %></li>
+    </ul>
+  <% end %>
+  <%= link_to '全ての商品を見る' %>
+</main>
