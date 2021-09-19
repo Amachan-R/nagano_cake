@@ -3,11 +3,11 @@ Rails.application.routes.draw do
         sessions: 'admin/sessions'
       }
 
-  #devise_for :customers, controllers: {
-    #sessions: 'public/sessions'
-    #registrations: 'public/registrations'
-    #passwords: 'public/passwords'
-  #}
+  devise_for :customers, controllers: {
+        sessions: 'public/sessions',
+        registrations: 'public/registrations',
+        passwords: 'public/passwords'
+      }
 
   namespace :admin do
     resources :genres, only: [:index, :create, :edit, :update]
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root to: 'homes#top'
+    get '/about' => 'homes#index'
   end
 
 end
