@@ -5,6 +5,10 @@ application up and running.
 
 Things you may want to cover:
 
+* ながのCAKE
+
+* 管理機能を含んだ通販サイトとなります。
+
 * Ruby version
 
 * System dependencies
