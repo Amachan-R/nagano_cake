@@ -1,7 +1,9 @@
 class Admin::ItemsController < ApplicationController
 
+  before_action :authenticate_admin!, only: [:index, :show, :update]
+
   def index
-    @items = Item.page(params[:page]).reverse_order
+    @items = Item.page(params[:page])
   end
 
   def new

@@ -1,23 +1,41 @@
-<h2>ログイン</h2>
+<main>
+  <%= flash[:error] %>
 
-<P>会員の方はこちらからログイン</P>
+  <div class="container">
+    <div class="p-4">
+      <h5 class="ml-5"><span class="border px-3 bg-light"><strong>ログイン</strong></span></h5>
+    </div>
+    <div class="pl-5">
+      <h6 class="ml-5"><span class="border px-3 bg-light"><strong>会員の方はこちらからログイン</strong></span></h6>
+    </div><br />
+    <div class="row">
+      <div class="mx-auto col-11">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label 'メールアドレス' %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field col-10 mx-auto">
+            <%= f.label 'メールアドレス' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'ml-3', :size => "40*30" %>
+          </div><br />
+
+          <div class="field col-10 mx-auto">
+            <%= f.label 'パスワード' %>
+            <%= f.password_field :password, autocomplete: "current-password", class: 'ml-5', :size => "40*30" %>
+          </div><br />
+
+          <div class="actions col-5 mx-auto">
+            <%= f.submit "ログイン", class: 'ml-2 px-4 btn btn-primary' %>
+          </div><br />
+        <% end %>
+      </div>
+    </div>
+    <div class="pl-5">
+      <h6 class="ml-5"><span class="border px-3 bg-light"><strong>会員登録がお済みでない方</strong></span></h6>
+    </div>
+    <div class="col-10 mx-auto">
+      <p class="p-3"><%= link_to 'こちら', new_customer_registration_path, class: 'ml-5' %>　から新規登録を行ってください</p>
+    </div>
+
+
   </div>
-
-  <div class="field">
-    <%= f.label 'パスワード' %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<P>会員登録がお済みでない方</P>
-<%= link_to 'こちら', new_customer_registration_path %>
-<p>から新規登録を行ってください</p>
+</main>

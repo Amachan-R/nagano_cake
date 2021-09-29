@@ -1,36 +1,73 @@
 <main>
-  <h2>注文履歴詳細</h2>
+  <div class="container">
+    <div class="p-4">
+      <div class="row">
+        <h5 class="col-3 ml-5"><span class="border px-3 bg-light"><strong>注文履歴詳細</strong></span></h5>
+      </div>
+    </div><br />
+    <div class="col-11">
+      <div class="row">
+        <div class="col-3"><p><strong>購入者</strong></p></div>
+        <div class="col-3"><%= @order.customer.last_name %><%= @order.customer.first_name %></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p><strong>注文日</strong></p></div>
+        <div class="col-2"><%= @order.created_at %></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p><strong>配送先</strong></p></div>
+        <div class="col-5">
+          〒<%= @order.postal_code %>　<%= @order.address %><br />
+          <%= @order.name %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3"><p><strong>支払方法</strong></p></div>
+        <div class="col-3"><%= @order.payment_method %></div>
+      </div>
+      <%= form_with model:@order, url:"/admin/orders/#{@order.id}", local:true do |f| %>
+        <div class="row">
+          <div class="col-3"><p><strong>注文ステータス</strong></p></div>
 
-  <h4>購入者</h4><p><%= @order.customer.last_name %><%= @order.customer.first_name %></p>
-  <h4>注文日</h4><p><%= @order.created_at %>></p>
-  <h4>配送先</h4><p><%= @order.postal_code %><%= @order.address %><%= @order.name %></p>
-  <h4>支払方法</h4><p><%= @order.payment_method %></p>
-  <h4>注文ステータス</h4><p></p>
-
-  <%= link_to "更新" %>
-
-  <table>
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>単価(税込み)</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th>製作ステータス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @order_detail.each do |order_detail| %>
-        <tr>
-          <td><span><%= order_detail.item.name %></span></td>
-          <td><span><%= order_detail.price %></span></td>
-          <td><span><%= order_detail.amount %></span></td>
-          <td><span></span></td>
-          <td><span><%= order_detail.making_status %></span></td>
-          <td></td>
-        </tr>
+          <div class="col-2">
+            <%= f.select(:status, [ ["入金待ち","入金待ち"], ["入金確認", "入金確認"], ["製作中", "製作中"], ["発送準備中", "発送準備中"], ["発送済み", "発送済み"] ]) %>
+          </div>
+          <div class="col-2">
+            <%= f.submit '更新', class: 'btn btn-success' %>
+          </div>
+        </div>
       <% end %>
-    </tbody>
-  </table>
-
+    </div><br />
+    <div class="row">
+      <div class="col-9 border-top border-bottom border-dark">
+        <div class="row">
+          <div class="col-3 border-bottom border-dark pt-3 bg-light"><p><strong>商品名</strong></p></div>
+          <div class="col-2 border-bottom border-dark pt-3 pl-0 bg-light"><p><strong>単価(税込み)</strong></p></p></div>
+          <div class="col-1 border-bottom border-dark pt-3 pl-0 bg-light"><p><strong>数量</strong></p></div>
+          <div class="col-2 border-bottom border-dark pt-3 bg-light"><p><strong>小計</strong></p></div>
+          <div class="col-4 border-bottom border-dark pt-3 bg-light"><p><strong>製作ステータス</strong></p></div>
+        </div>
+        <% @total = 0 %>
+        <% @order.order_details.each do |order_detail| %>
+          <div class="row">
+            <div class="col-3 py-1"><%= order_detail.item.name %></div>
+            <div class="col-2 py-1"><%= order_detail.price %></div>
+            <div class="col-1 py-1"><%= order_detail.amount %></div>
+            <div class="col-2 py-1"><%= order_detail.price*order_detail.amount %></div>
+            <div class="col-4 py-1">
+              <%= form_with model:order_detail, url:admin_order_detail_path(order_detail), local:true do |f| %>
+                <%= f.select(:making_status, [ ["製作不可", "製作不可"], ["製作待ち", "製作待ち"], ["製作中", "製作中"], ["製作完了", "製作完了"] ]) %>
+                <%= f.submit "更新", class: 'btn btn-success ml-3' %>
+              <% end %>
+            </div>
+          </div>
+          <% @total += (order_detail.item.price*1.1).to_i*order_detail.amount %>
+        <% end %>
+      </div>
+      <div class="col-3"><p class="ml-4 mt-3"><strong>商品合計</strong>　<%= @total %>円</p>
+        <p class="ml-4"><strong>送料</strong>　800円</p>
+        <p class="ml-4"><strong>請求金額合計　<%= @total+800 %>円</strong></p>
+      </div>
+    </div>
+  </div>
 </main>

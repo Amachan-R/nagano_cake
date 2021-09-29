@@ -1,25 +1,56 @@
 <main>
-  <h2>注文履歴一覧</h2>
+  <div class="container">
+    <div class="p-4">
+      <div class="row">
+        <h5 class="col-3 ml-5"><span class="border px-3 bg-light"><strong>注文履歴一覧</strong></span></h5>
+      </div><br />
+    </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>購入日時</th>
-        <th>購入者</th>
-        <th>注文個数</th>
-        <th>注文ステータス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @orders.each do |order| %>
-        <tr>
-          <td><span><%= order.created_at %></span></td>
-          <td><span><%= order.customer.name %></span></td>
-          <td><span></span></td>
-          <td><span><%= order.status %></span></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
+    <div class="row">
+      <div class="mx-auto col-11 col-sm-10 col-lg-10 col-xl-8">
+        <table class="table border-bottom border-dark">
+          <thead>
+            <tr class="table-secondary">
+              <th class="border-top border-dark">購入日時</th>
+              <th class="border-top border-dark">購入者</th>
+              <th class="border-top border-dark">注文個数</th>
+              <th class="border-top border-dark">注文ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @orders.each do |order| %>
+              <tr>
+                <td class="border-top border-dark"><span class="border-bottom border-dark">
+                  <%= link_to (admin_order_path(order.id)) do %>
+                      <span><%= order.created_at %></span>
+                  <% end %></span>
+                </td>
+                <td class="border-top border-dark"><span><%= order.customer.last_name %><%= order.customer.first_name %></span></td>
+                <td class="border-top border-dark"><span>
+                  <% total_amount = 0 %>
+                  <% order.order_details.each do |order_detail| %>
+                    <% total_amount = total_amount + order_detail.amount %>
+                  <% end %><%= total_amount %></span>
+                </td>
+                <td class="border-top border-dark">
+                  <% if order.status == "入金待ち" %>
+                    <p>入金待ち</p>
+                  <% elsif order.status == "入金確認" %>
+                    <p>入金確認</p>
+                  <% elsif order.status == "製作中" %>
+                    <p>製作中</p>
+                  <% elsif order.status == "発送準備中" %>
+                    <p>発送準備中</p>
+                  <% else %>
+                    <p>発送済み</p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center"><%= paginate @orders %></div>
+      </div>
+    </div>
+  </div>
 </main>

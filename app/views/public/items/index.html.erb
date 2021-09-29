@@ -1,0 +1,33 @@
+<main>
+  <div class="container px-5 px-sm-0">
+    <div class="row">
+      <div class="col-3">
+        <div class="border border-dark mt-5 pb-5">
+          <div class="border-bottom border-dark">
+            <h5 class="text-center"><strong>ジャンル検索</strong></h5>
+          </div>
+          <% @genres.each do |genre| %>
+          <div class="p-2"><%= genre.name %></div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-7">
+        <h3 class="pt-5"><strong>商品一覧</strong></h3><br />
+        <div class="row">
+          <% @items.each do |item| %>
+            <div class="col-3">
+              <%= link_to(item_path(item.id)) do %>
+                <span><%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %></span>
+              <% end %><br />
+              <%= item.name %><br />
+              ￥<%= (item.price*1.1).to_i %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-11 offset-2"><%= paginate @items %></div>
+
+      </div>
+    </div>
+  </div>
+</main>

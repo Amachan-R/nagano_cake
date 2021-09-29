@@ -4,25 +4,24 @@
     <div class="p-4">
       <h5 class="ml-5"><span class="border px-3 bg-light"><strong>管理者ログイン</strong></span></h5>
     </div>
-      <div class="row">
-        <div class="mx-auto col-11 col-sm-10 col-lg-8 col-xl-6">
+    <div class="row">
+      <div class="mx-auto col-11">
 
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <div class="field col-10 mx-auto">
-              <%= f.label :email, "メールアドレス" %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'ml-3', :size => "40*30" %>
-            </div><br />
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field col-10 mx-auto">
+            <%= f.label :email, "メールアドレス" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'ml-3', :size => "40*30" %>
+          </div><br />
 
-            <div class="field col-10 mx-auto">
-              <%= f.label :password, "パスワード" %>
-              <%= f.password_field :password, autocomplete: "current-password", class: 'ml-5', :size => "40*30" %>
-            </div><br />
+          <div class="field col-10 mx-auto">
+            <%= f.label :password, "パスワード" %>
+            <%= f.password_field :password, autocomplete: "current-password", class: 'ml-5', :size => "40*30" %>
+          </div><br />
 
-            <div class="actions col-5 mx-auto">
-              <%= f.submit "ログイン", class: 'ml-2 px-4 btn btn-primary' %>
-            </div>
-          <% end %>
-        </div>
+          <div class="actions col-5 mx-auto">
+            <%= f.submit "ログイン", class: 'ml-2 px-4 btn btn-primary' %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

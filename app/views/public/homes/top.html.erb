@@ -1,23 +1,42 @@
 <main>
-  <p><strong>ジャンル検索</strong></p>
-  <ul>
-    <li>ケーキ</li>
-    <li>焼き菓子</li>
-    <li>プリン</li>
-    <li>キャンディ</li>
-  </ul>
-  <p>ようこそ、ながのCAKEへ！<br />
-  このサイトは、ケーキ販売のECサイトになります。<br />
-  会員でない方も商品の閲覧はできますが、<br />
-  購入には会員登録が必要になります。
-  </p>
-  <h3>新着商品</h3>
-  <% @items.each do |item| %>
-    <ul>
-      <li><%= attachment_image_tag item, :image, :fill, 50, 50, format: 'jpeg' %></li>
-      <li><%= item.name %></li>
-      <li><%= item.price %></li>
-    </ul>
-  <% end %>
-  <%= link_to '全ての商品を見る' %>
+  <div class="container px-5 px-sm-0">
+    <div class="row">
+      <div class="col-3">
+        <div class="border border-dark mt-5 pb-5">
+          <div class="border-bottom border-dark">
+            <h5 class="text-center"><strong>ジャンル検索</strong></h5>
+          </div>
+          <% @genres.each do |genre| %>
+          <div class="p-2"><%= genre.name %></div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-7">
+        <div class="w-100 h-75 d-flex align-items-center ml-5 mt-5">
+          <p class="border border-dark w-75 py-3">ようこそ、ながのCAKEへ！<br />
+            このサイトは、ケーキ販売のECサイトになります。<br />
+            会員でない方も商品の閲覧はできますが、<br />
+            購入には会員登録が必要になります。
+          </p>
+        </div>
+      </div>
+    </div><br />
+    <div class="col-8 text-center">
+      <h3>新着商品</h3>
+    </div><br />
+    <div class="row">
+      <div class="offset-3"></div>
+      <% @items.each do |item| %>
+        <div class="col-2">
+          <%= link_to(item_path(item.id)) do %>
+            <span><%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %></span>
+          <% end %><br />
+          <br />
+          <%= item.name %><br />
+          <p>￥<%= item.price %></p>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-11 text-right"><%= link_to '全ての商品を見る>', items_path %></div>
+  </div>
 </main>
